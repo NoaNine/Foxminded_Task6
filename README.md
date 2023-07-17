@@ -1,8 +1,8 @@
 # Task6
 
-Проект створено Гавлицьким Олександром в навчальних цілях на курсі FoxmindEd.
+РџСЂРѕРµРєС‚ СЃС‚РІРѕСЂРµРЅРѕ Р“Р°РІР»РёС†СЊРєРёРј РћР»РµРєСЃР°РЅРґСЂРѕРј РІ РЅР°РІС‡Р°Р»СЊРЅРёС… С†С–Р»СЏС… РЅР° РєСѓСЂСЃС– FoxmindEd.
 
-Опис задачі:
+РћРїРёСЃ Р·Р°РґР°С‡С–:
 We have such tables in database (MS SQL Server):
 STUDENTS (STUDENT_ID, GROUP_ID, FIRST_NAME, LAST_NAME)
 GROUPS (GROUP_ID,COURSE_ID, NAME)
