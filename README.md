@@ -1,8 +1,8 @@
 # Task6
 
-Проект створено Гавлицьким Олександром в навчальних цілях на курсі FoxmindEd.
+ѕроект створено √авлицьким ќлександром в навчальних ц≥л€х на курс≥ FoxmindEd.
 
-Опис задачі:
+ќпис задач≥:
 We have such tables in database (MS SQL Server):
 STUDENTS (STUDENT_ID, GROUP_ID, FIRST_NAME, LAST_NAME)
 GROUPS (GROUP_ID,COURSE_ID, NAME)
@@ -19,3 +19,4 @@ you need to create the following script files:
 2) sql script to fill tables with test data
 
 3) in separate files all three requests that are required in the task.
+

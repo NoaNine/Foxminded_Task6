@@ -1,4 +1,4 @@
-﻿namespace University.Data
+﻿namespace University
 {
     public class Class1
     {

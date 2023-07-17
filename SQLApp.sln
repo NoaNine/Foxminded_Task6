@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLApp", "SQLApp\SQLApp.csproj", "{ED248C3D-8885-44AF-BB97-8673A0F15669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "University.Data", "University.Data\University.Data.csproj", "{E251C139-CDCC-4F1D-B216-D50DF8234E91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "University", "University\University.csproj", "{4FB5678E-6191-435D-A8E8-088E95A35BE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{ED248C3D-8885-44AF-BB97-8673A0F15669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED248C3D-8885-44AF-BB97-8673A0F15669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED248C3D-8885-44AF-BB97-8673A0F15669}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E251C139-CDCC-4F1D-B216-D50DF8234E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E251C139-CDCC-4F1D-B216-D50DF8234E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E251C139-CDCC-4F1D-B216-D50DF8234E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E251C139-CDCC-4F1D-B216-D50DF8234E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB5678E-6191-435D-A8E8-088E95A35BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB5678E-6191-435D-A8E8-088E95A35BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB5678E-6191-435D-A8E8-088E95A35BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB5678E-6191-435D-A8E8-088E95A35BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
