@@ -1,16 +1,15 @@
 ﻿using University.Models;
 
-namespace University.DAL
+namespace University.DAL.Interface
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<T> Entities { get; }
+        //IQueryable<TTEntity Entities { get; }
 
-        void Delete(T entity);
-        IEnumerable<T> GetAllItem();
-        Student GetByID(T entity);
-        void Insert(T entity);
-        void Save();
-        void Update(T entity);
+        void Delete(TEntity entity);
+        IEnumerable<TEntity> GetAllItem();
+        TEntity GetByID(TEntity entity);
+        void Insert(TEntity entity);
+        void Update(TEntity entity);
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Validation;
+﻿using System.Data.Entity.Validation;
 using University.DAL.Interface;
-using University.Models;
 using University.DAL;
 
 namespace ContosoUniversity.DAL
@@ -29,7 +27,6 @@ namespace ContosoUniversity.DAL
             {
                 _repositories[type] = new Repository<TEntity>(_context);
             }
-
             return (IRepository<TEntity>)_repositories[type];
         }
 

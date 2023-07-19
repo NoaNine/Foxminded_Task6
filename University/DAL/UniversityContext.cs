@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using University.DAL;
+﻿using System.Data.Entity;
 using University.Models;
 
 public class UniversityContext : DbContext

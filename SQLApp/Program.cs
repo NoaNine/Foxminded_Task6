@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace SQLApp
 {
@@ -7,23 +8,19 @@ namespace SQLApp
         static void Main(string[] args)
         {
             IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration(app =>
-    {
-        app.SetBasePath(Directory.GetCurrentDirectory());
-        app.AddJsonFile("appsettings.json");
-    })
-    .ConfigureServices((_, services) =>
-    {
-        services.Configure<Settings>(_.Configuration.GetSection("Settings"));
-        services.AddScoped(typeof(INumberGenerator), typeof(NumberGenerator));
-        services.AddTransient(typeof(IUserInteractionReader), typeof(ConsoleReader));
-        services.AddTransient(typeof(IUserInteractionWriter), typeof(ConsoleWriter));
-        //services.AddSingleton(typeof(IGame), typeof(Game));
-        services.AddSingleton(typeof(IGameNotification), typeof(GameCore));
-    })
-    .Build();
-            var game = host.Services.GetService<IGameNotification>() ?? throw new ArgumentNullException("Game");
-
+                .ConfigureAppConfiguration(app =>
+                { 
+                    app.SetBasePath(Directory.GetCurrentDirectory());
+                    app.AddJsonFile("appsettings.json");
+                })
+                .ConfigureServices((_, services) =>
+                {
+                    //services.Configure<Settings>(_.Configuration.GetSection("Settings"));
+                    //services.AddScoped(typeof(I), typeof());
+                    //services.AddTransient(typeof(I), typeof());
+                    //services.AddSingleton(typeof(I), typeof());
+                })
+                .Build();
         }
     }
 }

@@ -1,47 +1,44 @@
 ﻿using System.Data.Entity;
-using University.Models;
+using University.DAL.Interface;
 
 namespace University.DAL
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly UniversityContext _dbContext;
-        private IDbSet<T> _dbSet => _dbContext.Set<T>();
-        public IQueryable<T> Entities => _dbSet;
+        private readonly IDbSet<TEntity> _dbSet;
+        //public IQueryable<T> Entities => _dbSet;
 
-        public GenericRepository(UniversityContext dbContext)
+        public Repository(UniversityContext dbContext)
         {
             _dbContext = dbContext;
+            _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public IEnumerable<T> GetAllItem()
+        public IEnumerable<TEntity> GetAllItem()
         {
-            return null;
+            return _dbSet.ToList();
         }
 
-        public Student GetByID(T entity)
+        public TEntity GetByID(TEntity entity) 
         {
-            return null;
+            return _dbSet.Find(entity);
         }
 
-        public void Insert(T entity)
+        public void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
         }
 
-        public void Update(T entity)
+        public void Update(TEntity entity)
         {
-
-        }
-
-        public void Save()
-        {
-
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }
