@@ -27,7 +27,7 @@ namespace University.DAL
 
         public IQueryable<TEntity> GetAllQuery()
         {
-            return null;
+            return null; // add
         }
 
         public TEntity GetByID(TEntity entity)
