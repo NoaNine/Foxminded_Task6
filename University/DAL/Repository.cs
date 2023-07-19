@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq.Expressions;
 using University.DAL.Interface;
 
 namespace University.DAL
@@ -7,7 +8,6 @@ namespace University.DAL
     {
         private readonly UniversityContext _dbContext;
         private readonly IDbSet<TEntity> _dbSet;
-        //public IQueryable<T> Entities => _dbSet;
 
         public Repository(UniversityContext dbContext)
         {
@@ -15,12 +15,22 @@ namespace University.DAL
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAllItem()
+        public IEnumerable<TEntity> GettAll()
         {
             return _dbSet.ToList();
         }
 
-        public TEntity GetByID(TEntity entity) 
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
+        {
+            return _dbSet.Where(filter).ToList();
+        }
+
+        public IQueryable<TEntity> GetAllQuery()
+        {
+            return null;
+        }
+
+        public TEntity GetByID(TEntity entity)
         {
             return _dbSet.Find(entity);
         }
