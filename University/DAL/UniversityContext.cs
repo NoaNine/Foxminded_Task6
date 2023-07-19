@@ -9,7 +9,7 @@ public class UniversityContext : DbContext
     public DbSet<Group> Groups { get; set; }    
     public DbSet<Course> Courses { get; set; }
     
-    public UniversityContext() : base("DefaultConnection")
+    public UniversityContext() : base("connectionMSSQL")
     {
 
     }
