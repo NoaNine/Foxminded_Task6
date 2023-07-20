@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using University.Models;
+using University.DAL.Models;
 
 public class UniversityContext : DbContext
 {

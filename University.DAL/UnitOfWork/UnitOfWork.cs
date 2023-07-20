@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity.Validation;
-using University.DAL.Interface;
-using University.DAL;
+using University.Dal.UnitOfWork;
+using University.DAL.Repository;
 
-namespace ContosoUniversity.DAL
+namespace University.DAL.UnitOfWork
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {

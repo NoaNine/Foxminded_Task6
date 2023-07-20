@@ -1,4 +1,6 @@
-﻿namespace University.DAL.Interface
+﻿using University.DAL.Repository;
+
+namespace University.Dal.UnitOfWork
 {
     public interface IUnitOfWork
     {

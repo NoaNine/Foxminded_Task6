@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace University.DAL.Interface
+namespace University.DAL.Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -9,7 +9,7 @@ namespace University.DAL.Interface
         IQueryable<TEntity> GetAllQuery();
         TEntity GetByID(TEntity entity);
         IEnumerable<TEntity> GettAll();
-        void Insert(TEntity entity);
-        void Update(TEntity entity);
+        TEntity Insert(TEntity entity);
+        TEntity Update(TEntity entity);
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq.Expressions;
-using University.DAL.Interface;
 
-namespace University.DAL
+namespace University.DAL.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -35,9 +34,9 @@ namespace University.DAL
             return _dbSet.Find(entity);
         }
 
-        public void Insert(TEntity entity)
+        public TEntity Insert(TEntity entity)
         {
-            _dbSet.Add(entity);
+            return _dbSet.Add(entity);
         }
 
         public void Delete(TEntity entity)
@@ -45,10 +44,11 @@ namespace University.DAL
             _dbSet.Remove(entity);
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
-            _dbSet.Attach(entity);
+            var input = _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
+            return input;
         }
     }
 }
