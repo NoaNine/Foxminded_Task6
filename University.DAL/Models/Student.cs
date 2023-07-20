@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace University.DAL.Models
 {
     [Table("STUDENTS")]
     public class Student
     {
-        [Index(IsUnique = true)]
+        [Key]
         public int StudentId { get; set; }
         [Index(IsUnique = true)]
         public int GroupId { get; set; }

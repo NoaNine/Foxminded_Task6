@@ -7,10 +7,10 @@ namespace University.DAL.Models
     public class Group
     {
         [Key]
-        [Index(IsUnique = true)]
         public int GroupId { get; set; }
         [Index(IsUnique = true)]
         public int CourseId { get; set; }
+        [Index(IsUnique = true)]
         public string Name { get; set; }
         [ForeignKey("CourseId")]
         public Course Course { get; set; }

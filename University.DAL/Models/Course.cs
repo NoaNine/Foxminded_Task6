@@ -8,6 +8,7 @@ namespace University.DAL.Models
     {
         [Key]
         public int CourseId { get; set; }
+        [Index(IsUnique = true)]
         public string Name { get; set; }
         public string Description { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
