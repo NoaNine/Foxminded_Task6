@@ -1,12 +1,12 @@
-﻿using System.Data.Entity;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace University.DAL.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly UniversityContext _dbContext;
-        private readonly IDbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
 
         public Repository(UniversityContext dbContext)
         {
@@ -16,7 +16,7 @@ namespace University.DAL.Repository
 
         public IEnumerable<TEntity> GettAll()
         {
-            return _dbSet.ToList();
+            return _dbContext.Set<TEntity>().ToList();
         }
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
@@ -26,7 +26,7 @@ namespace University.DAL.Repository
 
         public IQueryable<TEntity> GetAllQuery()
         {
-            return null; // add
+            return _dbSet.AsNoTracking();
         }
 
         public TEntity GetByID(TEntity entity)
@@ -36,7 +36,9 @@ namespace University.DAL.Repository
 
         public TEntity Insert(TEntity entity)
         {
-            return _dbSet.Add(entity);
+            _dbSet.Add(entity);
+            _dbContext.SaveChanges();
+            return entity;
         }
 
         public void Delete(TEntity entity)
@@ -46,9 +48,9 @@ namespace University.DAL.Repository
 
         public TEntity Update(TEntity entity)
         {
-            var input = _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            return input;
+            _dbContext.SaveChanges();
+            return entity;
         }
     }
 }

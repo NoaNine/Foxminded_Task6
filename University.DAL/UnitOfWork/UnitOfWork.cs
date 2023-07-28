@@ -1,4 +1,4 @@
-﻿using System.Data.Entity.Validation;
+﻿using Microsoft.EntityFrameworkCore;
 using University.Dal.UnitOfWork;
 using University.DAL.Repository;
 
@@ -32,21 +32,14 @@ namespace University.DAL.UnitOfWork
 
         public void Save()
         {
+            _context.SaveChanges();
             try
             {
                 _context.SaveChanges();
             }
-            catch (DbEntityValidationException dbEx)
+            catch (DbUpdateException dbEx)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        _errorMessage = _errorMessage +
-                            $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage} {Environment.NewLine}";
-                    }
-                }
-                throw new Exception(_errorMessage, dbEx);
+                throw new Exception(dbEx.Message, dbEx);
             }
         }
 
