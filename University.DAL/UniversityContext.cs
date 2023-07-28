@@ -11,6 +11,12 @@ public class UniversityContext : DbContext
     {
         optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=University;Trusted_Connection=True;");
     }
+
+    public UniversityContext(DbContextOptions<UniversityContext> options) : base(options)
+    {
+
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Course>()
