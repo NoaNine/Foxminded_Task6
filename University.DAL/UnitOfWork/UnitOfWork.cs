@@ -7,7 +7,6 @@ namespace University.DAL.UnitOfWork
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private readonly UniversityContext _context;
-        private string _errorMessage = string.Empty;
         private bool _disposed = false;
         private Dictionary<Type, object> _repositories;
 

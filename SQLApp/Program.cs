@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using University.DAL.Models;
@@ -16,16 +17,20 @@ namespace SQLApp
                     app.SetBasePath(Directory.GetCurrentDirectory());
                     app.AddJsonFile("appsettings.json");
                 })
-                .ConfigureServices((_, services) =>
+                .ConfigureServices((context, services) =>
                 {
-                    //services.Configure<Settings>(_.Configuration.GetSection("Settings"));
-                    services.AddDbContext<UniversityContext>(); 
+                    IConfiguration configuration = context.Configuration;
+                    services.AddDbContext<UniversityContext>(o => o.UseSqlServer(configuration.GetConnectionString("UniversityDatabase")));
                     services.AddScoped<IRepository<Course>, Repository<Course>>();
                     services.AddScoped<IRepository<Group>, Repository<Group>>();
                     services.AddScoped<IRepository<Student>, Repository<Student>>();
-
                 })
                 .Build();
+            var repository = host.Services.GetService<IRepository<Course>>();
+            foreach (var item in repository.GetAll())
+            {
+                Console.WriteLine(item.Name);
+            }
         }
     }
 }

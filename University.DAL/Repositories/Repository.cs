@@ -14,12 +14,12 @@ namespace University.DAL.Repository
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GettAll()
+        public TEntity GetByID(TEntity entity)
         {
-            return _dbContext.Set<TEntity>().ToList();
+            return _dbSet.Find(entity);
         }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
             return _dbSet.Where(filter).ToList();
         }
@@ -29,11 +29,6 @@ namespace University.DAL.Repository
             return _dbSet.AsNoTracking();
         }
 
-        public TEntity GetByID(TEntity entity)
-        {
-            return _dbSet.Find(entity);
-        }
-
         public TEntity Insert(TEntity entity)
         {
             _dbSet.Add(entity);
@@ -41,16 +36,15 @@ namespace University.DAL.Repository
             return entity;
         }
 
+        public TEntity Update(TEntity entity)
+        {
+            _dbSet.Update(entity);
+            return entity;
+        }
+
         public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
-        }
-
-        public TEntity Update(TEntity entity)
-        {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-            return entity;
         }
     }
 }
