@@ -4,7 +4,7 @@ using University.DAL.Models;
 public class UniversityContext : DbContext
 {
     public DbSet<Student> Students { get; set; }
-    public DbSet<Group> Groups { get; set; }    
+    public DbSet<Group> Groups { get; set; }
     public DbSet<Course> Courses { get; set; }
 
     public UniversityContext(DbContextOptions<UniversityContext> options) : base(options)
@@ -24,6 +24,10 @@ public class UniversityContext : DbContext
         modelBuilder.Entity<Course>()
             .HasIndex(c => c.Name)
             .IsUnique();
+        modelBuilder.Entity<Course>()
+            .Property(p => p.CourseId)
+            .UseIdentityColumn(0, 1);
+
         modelBuilder.Entity<Group>()
             .ToTable("Groups")
             .HasMany(g => g.Students)
@@ -34,6 +38,7 @@ public class UniversityContext : DbContext
         modelBuilder.Entity<Group>()
             .HasIndex(c => c.Name)
             .IsUnique();
+
         modelBuilder.Entity<Student>()
             .ToTable("Students")
             .HasKey(s => s.StudentId);
