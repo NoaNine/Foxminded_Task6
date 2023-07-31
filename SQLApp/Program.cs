@@ -21,9 +21,7 @@ namespace SQLApp
                 {
                     IConfiguration configuration = context.Configuration;
                     services.AddDbContext<UniversityContext>(o => o.UseSqlServer(configuration.GetConnectionString("UniversityDatabase")));
-                    services.AddScoped<IRepository<Course>, Repository<Course>>();
-                    services.AddScoped<IRepository<Group>, Repository<Group>>();
-                    services.AddScoped<IRepository<Student>, Repository<Student>>();
+                    services.AddDataDependencies();
                 })
                 .Build();
             var repository = host.Services.GetService<IRepository<Course>>();
