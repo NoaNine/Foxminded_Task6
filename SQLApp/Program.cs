@@ -27,7 +27,7 @@ namespace SQLApp
             var repository = host.Services.GetService<IRepository<Course>>();
             foreach (var item in repository.GetAll())
             {
-                Console.WriteLine(item.Name);
+                Console.WriteLine(item.CourseId);
             }
         }
     }

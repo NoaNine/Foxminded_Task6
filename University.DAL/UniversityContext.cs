@@ -27,8 +27,8 @@ public class UniversityContext : DbContext
             c.HasIndex(c => c.Name)
             .IsUnique();
 
-            c.Property(p => p.CourseId)
-            .UseIdentityColumn(1, 1);
+            //c.Property(p => p.CourseId)
+            //.UseIdentityColumn(1, 1);
         });
 
         modelBuilder.Entity<Group>(g =>
@@ -48,6 +48,9 @@ public class UniversityContext : DbContext
         {
             s.ToTable("Students")
             .HasKey(s => s.StudentId);
+            s.Property(s => s.StudentId)
+            .IsRequired()
+            .UseIdentityColumn(1, 1);
         });
 
         modelBuilder.Seed();

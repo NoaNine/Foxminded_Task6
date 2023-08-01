@@ -21,6 +21,10 @@ namespace University.DAL.Repository
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
+            if (filter == null)
+            {
+                return _dbSet.ToList();
+            }
             return _dbSet.Where(filter).ToList();
         }
 
