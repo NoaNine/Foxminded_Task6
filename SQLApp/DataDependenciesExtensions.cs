@@ -4,7 +4,7 @@ using University.DAL.Repository;
 
 namespace SQLApp
 {
-    public static class DataDependencies
+    public static class DataDependenciesExtensions
     {
         public static IServiceCollection AddDataDependencies(this IServiceCollection services)
         {

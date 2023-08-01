@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using University.DAL;
 using University.DAL.Models;
 
 public class UniversityContext : DbContext
@@ -14,33 +15,41 @@ public class UniversityContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Course>()
-            .ToTable("Courses")
+        modelBuilder.Entity<Course>(c =>
+        {
+            c.ToTable("Courses")
             .HasMany(c => c.Groups)
             .WithOne(g => g.Course)
             .HasForeignKey(g => g.CourseId)
             .HasPrincipalKey(c => c.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<Course>()
-            .HasIndex(c => c.Name)
-            .IsUnique();
-        modelBuilder.Entity<Course>()
-            .Property(p => p.CourseId)
-            .UseIdentityColumn(0, 1);
 
-        modelBuilder.Entity<Group>()
-            .ToTable("Groups")
+            c.HasIndex(c => c.Name)
+            .IsUnique();
+
+            c.Property(p => p.CourseId)
+            .UseIdentityColumn(1, 1);
+        });
+
+        modelBuilder.Entity<Group>(g =>
+        {
+            g.ToTable("Groups")
             .HasMany(g => g.Students)
             .WithOne(s => s.Group)
             .HasForeignKey(s => s.GroupId)
             .HasPrincipalKey(g => g.GroupId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<Group>()
-            .HasIndex(c => c.Name)
-            .IsUnique();
 
-        modelBuilder.Entity<Student>()
-            .ToTable("Students")
+            g.HasIndex(c => c.Name)
+            .IsUnique();
+        });
+
+        modelBuilder.Entity<Student>(s =>
+        {
+            s.ToTable("Students")
             .HasKey(s => s.StudentId);
+        });
+
+        modelBuilder.Seed();
     }
 }

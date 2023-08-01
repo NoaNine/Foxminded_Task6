@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using University.DAL.Models;
+﻿using University.DAL.Models;
 
 namespace University.DAL
 {
@@ -20,14 +19,14 @@ namespace University.DAL
             context.SaveChanges();
 
             var groups = new Group[]
-{
+            {
                 new Group{GroupId = 101, CourseId = 0, Name = "SR-01"},
                 new Group{GroupId = 102, CourseId = 0, Name = "SR-02"},
                 new Group{GroupId = 103, CourseId = 0, Name = "SR-03"},
                 new Group{GroupId = 111, CourseId = 1, Name = "PI-11"},
                 new Group{GroupId = 121, CourseId = 2, Name = "EE-21"},
                 new Group{GroupId = 131, CourseId = 3, Name = "YP-31"}
-};
+            };
             context.Groups.AddRange(groups);
             context.SaveChanges();
 
