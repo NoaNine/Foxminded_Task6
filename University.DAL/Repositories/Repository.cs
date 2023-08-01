@@ -36,7 +36,6 @@ namespace University.DAL.Repository
         public TEntity Insert(TEntity entity)
         {
             _dbSet.Add(entity);
-            _dbContext.SaveChanges();
             return entity;
         }
 
