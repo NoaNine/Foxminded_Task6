@@ -1,53 +1,52 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace University.DAL.Repository
+namespace University.DAL.Repository;
+
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    private readonly UniversityContext _dbContext;
+    private readonly DbSet<TEntity> _dbSet;
+
+    public Repository(UniversityContext dbContext)
     {
-        private readonly UniversityContext _dbContext;
-        private readonly DbSet<TEntity> _dbSet;
+        _dbContext = dbContext;
+        _dbSet = _dbContext.Set<TEntity>();
+    }
 
-        public Repository(UniversityContext dbContext)
-        {
-            _dbContext = dbContext;
-            _dbSet = _dbContext.Set<TEntity>();
-        }
+    public TEntity GetByID(TEntity entity)
+    {
+        return _dbSet.Find(entity);
+    }
 
-        public TEntity GetByID(TEntity entity)
+    public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+    {
+        if (filter == null)
         {
-            return _dbSet.Find(entity);
+            return _dbSet.ToList();
         }
+        return _dbSet.Where(filter).ToList();
+    }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
-        {
-            if (filter == null)
-            {
-                return _dbSet.ToList();
-            }
-            return _dbSet.Where(filter).ToList();
-        }
+    public IQueryable<TEntity> GetAllQuery()
+    {
+        return _dbSet.AsNoTracking();
+    }
 
-        public IQueryable<TEntity> GetAllQuery()
-        {
-            return _dbSet.AsNoTracking();
-        }
+    public TEntity Insert(TEntity entity)
+    {
+        _dbSet.Add(entity);
+        return entity;
+    }
 
-        public TEntity Insert(TEntity entity)
-        {
-            _dbSet.Add(entity);
-            return entity;
-        }
+    public TEntity Update(TEntity entity)
+    {
+        _dbSet.Update(entity);
+        return entity;
+    }
 
-        public TEntity Update(TEntity entity)
-        {
-            _dbSet.Update(entity);
-            return entity;
-        }
-
-        public void Delete(TEntity entity)
-        {
-            _dbSet.Remove(entity);
-        }
+    public void Delete(TEntity entity)
+    {
+        _dbSet.Remove(entity);
     }
 }

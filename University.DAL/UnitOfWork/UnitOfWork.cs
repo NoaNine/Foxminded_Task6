@@ -2,62 +2,58 @@
 using University.Dal.UnitOfWork;
 using University.DAL.Repository;
 
-namespace University.DAL.UnitOfWork
+namespace University.DAL.UnitOfWork;
+
+public class UnitOfWork : IDisposable, IUnitOfWork
 {
-    public class UnitOfWork : IDisposable, IUnitOfWork
+    private readonly UniversityContext _context;
+    private bool _disposed = false;
+    private Dictionary<Type, object> _repositories;
+
+    public UnitOfWork(UniversityContext context)
     {
-        private readonly UniversityContext _context;
-        private bool _disposed = false;
-        private Dictionary<Type, object> _repositories;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
 
-        public UnitOfWork(UniversityContext context)
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+    {
+        _repositories = new Dictionary<Type, object>();
+        var type = typeof(TEntity);
+        if (!_repositories.ContainsKey(type))
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _repositories[type] = new Repository<TEntity>(_context);
         }
+        return (IRepository<TEntity>)_repositories[type];
+    }
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
-        {
-            if (_repositories == null)
-            {
-                _repositories = new Dictionary<Type, object>();
-            }
-            var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type))
-            {
-                _repositories[type] = new Repository<TEntity>(_context);
-            }
-            return (IRepository<TEntity>)_repositories[type];
-        }
-
-        public void Save()
+    public void Save()
+    {
+        _context.SaveChanges();
+        try
         {
             _context.SaveChanges();
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbUpdateException dbEx)
-            {
-                throw new Exception(dbEx.Message, dbEx);
-            }
         }
-
-        public void Dispose()
+        catch (DbUpdateException dbEx)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            throw new Exception(dbEx.Message, dbEx);
         }
+    }
 
-        protected virtual void Dispose(bool disposing)
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
         {
-            if (!_disposed)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
+                _context.Dispose();
             }
-            _disposed = true;
         }
+        _disposed = true;
     }
 }

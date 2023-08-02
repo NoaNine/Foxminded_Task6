@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using University.DAL;
+using University.DAL.Extensions;
 using University.DAL.Models;
+
+namespace University.DAL;
 
 public class UniversityContext : DbContext
 {
+    public DbSet<Model> Models { get; set; }
     public DbSet<Student> Students { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Course> Courses { get; set; }
@@ -15,39 +18,36 @@ public class UniversityContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Model>(m =>
+        {
+            m.UseTpcMappingStrategy();
+            m.HasKey(m => m.Id);
+
+        });
+
         modelBuilder.Entity<Course>(c =>
         {
             c.ToTable("Courses")
-            .HasMany(c => c.Groups)
-            .WithOne(g => g.Course)
-            .HasForeignKey(g => g.CourseId)
-            .HasPrincipalKey(c => c.CourseId)
-            .OnDelete(DeleteBehavior.Cascade);
-
+                .HasMany(c => c.Groups)
+                .WithOne(g => g.Course)
+                .OnDelete(DeleteBehavior.Cascade);
             c.HasIndex(c => c.Name)
-            .IsUnique();
-
-            c.Property(p => p.CourseId)
-            .UseIdentityColumn(1, 1);
+                .IsUnique();
         });
 
         modelBuilder.Entity<Group>(g =>
         {
             g.ToTable("Groups")
-            .HasMany(g => g.Students)
-            .WithOne(s => s.Group)
-            .HasForeignKey(s => s.GroupId)
-            .HasPrincipalKey(g => g.GroupId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-            g.HasIndex(c => c.Name)
-            .IsUnique();
+                .HasMany(g => g.Students)
+                .WithOne(s => s.Group)
+                .OnDelete(DeleteBehavior.Cascade);
+            g.HasIndex(g => g.Name)
+                .IsUnique();
         });
 
         modelBuilder.Entity<Student>(s =>
         {
-            s.ToTable("Students")
-            .HasKey(s => s.StudentId);
+            s.ToTable("Students");
         });
 
         modelBuilder.Seed();

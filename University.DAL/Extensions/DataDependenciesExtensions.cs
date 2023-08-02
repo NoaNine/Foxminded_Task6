@@ -2,7 +2,7 @@
 using University.DAL.Models;
 using University.DAL.Repository;
 
-namespace SQLApp
+namespace University.DAL.Extensions
 {
     public static class DataDependenciesExtensions
     {

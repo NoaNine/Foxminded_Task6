@@ -1,11 +1,8 @@
-﻿namespace University.DAL.Models
+﻿namespace University.DAL.Models;
+
+public class Student : Model
 {
-    public class Student
-    {
-        public int StudentId { get; set; }
-        public int GroupId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Group Group { get; set; }
-    }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public Group Group { get; set; }
 }
