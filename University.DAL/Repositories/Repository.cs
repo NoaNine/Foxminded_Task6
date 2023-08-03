@@ -28,9 +28,13 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return _dbSet.Where(filter).ToList();
     }
 
-    public IQueryable<TEntity> GetAllQuery()
+    public IQueryable<TEntity> GetAllQuery(Expression<Func<TEntity, bool>> filter = null)
     {
-        return _dbSet.AsNoTracking();
+        if (filter == null)
+        {
+            return _dbSet.AsNoTracking();
+        }
+        return _dbSet.Where(filter).AsNoTracking();
     }
 
     public TEntity Insert(TEntity entity)
