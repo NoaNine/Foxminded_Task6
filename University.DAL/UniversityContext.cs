@@ -6,7 +6,6 @@ namespace University.DAL;
 
 public class UniversityContext : DbContext
 {
-    public DbSet<Model> Models { get; set; }
     public DbSet<Student> Students { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Course> Courses { get; set; }
@@ -18,13 +17,6 @@ public class UniversityContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Model>(m =>
-        {
-            m.UseTpcMappingStrategy();
-            m.HasKey(m => m.Id);
-
-        });
-
         modelBuilder.Entity<Course>(c =>
         {
             c.ToTable("Courses")
