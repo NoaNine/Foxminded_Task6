@@ -14,7 +14,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbSet = _dbContext.Set<TEntity>();
     }
 
-    public TEntity GetByID(TEntity entity)
+    public TEntity GetByID(object entity)
     {
         return _dbSet.Find(entity);
     }
@@ -37,16 +37,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return _dbSet.Where(filter).AsNoTracking();
     }
 
-    public TEntity Insert(TEntity entity)
+    public void Insert(TEntity entity)
     {
         _dbSet.Add(entity);
-        return entity;
     }
 
-    public TEntity Update(TEntity entity)
+    public void Update(TEntity entity)
     {
         _dbSet.Update(entity);
-        return entity;
     }
 
     public void Delete(TEntity entity)
