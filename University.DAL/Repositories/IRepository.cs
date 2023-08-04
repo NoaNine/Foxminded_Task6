@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace University.DAL.Repository;
+namespace University.DAL.Repositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {

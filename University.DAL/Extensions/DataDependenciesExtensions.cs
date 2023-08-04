@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using University.DAL.Models;
-using University.DAL.Repository;
+using University.DAL.Repositories;
 
 namespace University.DAL.Extensions
 {

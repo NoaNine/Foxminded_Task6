@@ -1,4 +1,4 @@
-﻿using University.DAL.Repository;
+﻿using University.DAL.Repositories;
 
 namespace University.Dal.UnitOfWork;
 

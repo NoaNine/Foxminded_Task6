@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace University.DAL.Repository;
+namespace University.DAL.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {

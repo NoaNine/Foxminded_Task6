@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using University.DAL;
 using University.DAL.Extensions;
 using University.DAL.Models;
-using University.DAL.Repository;
+using University.DAL.Repositories;
 
 namespace SQLApp;
 
