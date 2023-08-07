@@ -1,12 +1,12 @@
 namespace University.DAL.Tests;
 
 [TestClass]
-public class RepositoryCourseTests1
+public class RepositoryCourseTests
 {
     private readonly DbConnection _connection;
     private readonly DbContextOptions<UniversityContext> _contextOptions;
 
-    public RepositoryCourseTests1()
+    public RepositoryCourseTests()
     {
         _connection = new SqliteConnection("Filename=:memory:");
         _connection.Open();
@@ -15,7 +15,7 @@ public class RepositoryCourseTests1
             .Options;
         using var context = new UniversityContext(_contextOptions);
         context.Database.EnsureCreated();
-        context.Courses.AddRange(RepositoryCourseTestData.GetData());
+        context.Courses.UpdateRange(RepositoryCourseTestData.GetData());
         context.SaveChanges();
     }
 
@@ -40,6 +40,6 @@ public class RepositoryCourseTests1
         var repository = new Repository<Course>(context);
 
         var result = repository.GetAll();
-        Assert.AreEqual(2, result.Count());
+        Assert.AreEqual(4, result.Count());
     }
 }
