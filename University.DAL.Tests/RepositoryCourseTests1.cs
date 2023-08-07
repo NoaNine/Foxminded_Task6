@@ -14,24 +14,12 @@ public class RepositoryCourseTests1
             .UseSqlite(_connection)
             .Options;
         using var context = new UniversityContext(_contextOptions);
-
-        if (context.Database.EnsureCreated())
-        {
-            using var viewCommand = context.Database.GetDbConnection().CreateCommand();
-            viewCommand.CommandText = @"
-CREATE VIEW AllResources AS
-SELECT Id
-FROM Courses;";
-            viewCommand.ExecuteNonQuery();
-        }
-        context.Courses.AddRange(
-            new Course { Id = 1, Name = "Прикладна математика", Description = "" },
-            new Course { Id = 2, Name = "Комп`ютерна інженерія", Description = "" }
-            );
+        context.Database.EnsureCreated();
+        context.Courses.AddRange(RepositoryCourseTestData.GetData());
         context.SaveChanges();
     }
 
-    UniversityContext CreateContext() => new UniversityContext(_contextOptions);
+    public UniversityContext CreateContext() => new UniversityContext(_contextOptions);
 
     public void Dispose() => _connection.Dispose();
 
