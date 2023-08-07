@@ -1,28 +1,8 @@
 namespace University.DAL.Tests;
 
 [TestClass]
-public class RepositoryCourseTests
+public class RepositoryCourseTests : SqliteConnection
 {
-    private readonly DbConnection _connection;
-    private readonly DbContextOptions<UniversityContext> _contextOptions;
-
-    public RepositoryCourseTests()
-    {
-        _connection = new SqliteConnection("Filename=:memory:");
-        _connection.Open();
-        _contextOptions = new DbContextOptionsBuilder<UniversityContext>()
-            .UseSqlite(_connection)
-            .Options;
-        using var context = new UniversityContext(_contextOptions);
-        context.Database.EnsureCreated();
-        context.Courses.UpdateRange(RepositoryCourseTestData.GetData());
-        context.SaveChanges();
-    }
-
-    public UniversityContext CreateContext() => new UniversityContext(_contextOptions);
-
-    public void Dispose() => _connection.Dispose();
-
     [TestMethod]
     public void GetById_WhenCalled_ReturnsCourseById()
     {
@@ -41,5 +21,29 @@ public class RepositoryCourseTests
 
         var result = repository.GetAll();
         Assert.AreEqual(4, result.Count());
+    }
+
+    [TestMethod]
+    public void Insert_WhenCalled_MoreData()
+    {
+        using var context = CreateContext();
+        var repository = new Repository<Course>(context);
+        var count = context.Courses.Count();
+        repository.Insert(new Course { Name = "", Description = "" });
+        context.SaveChanges();
+        var result = context.Courses.Count();
+        Assert.AreEqual(count + 1, result);
+    }
+
+    [TestMethod]
+    public void Insert_WhenCalled_LessData()
+    {
+        using var context = CreateContext();
+        var repository = new Repository<Course>(context);
+        var count = context.Courses.Count();
+        repository.Delete(context.Courses.Single(i => i.Id == 4));
+        context.SaveChanges();
+        var result = context.Courses.Count();
+        Assert.AreEqual(count - 1, result);
     }
 }
