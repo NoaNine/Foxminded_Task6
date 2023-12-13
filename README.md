@@ -1,8 +1,11 @@
-# Task6
+# FoxmindEd_Task6
+The project was created by Oleksandr Havlytskyi for educational purposes at the FoxmindEd course.
+____
+**Technology or principles have been mastered( or repeated):** Entity Framework Core, app file architecture, SQL Query, MSSQL Serve, Database normalization.
+____
+**The purpose of the project:** Learn to create a DB and database queries.
 
-Проект створено Гавлицьким Олександром в навчальних цілях на курсі FoxmindEd.
-
-Опис задачі:
+**Task description:**
 We have such tables in database (MS SQL Server):
 STUDENTS (STUDENT_ID, GROUP_ID, FIRST_NAME, LAST_NAME)
 GROUPS (GROUP_ID,COURSE_ID, NAME)
