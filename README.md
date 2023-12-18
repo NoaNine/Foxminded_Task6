@@ -16,6 +16,7 @@ Write SQL query that finds name of course and related students.
 
 
 
+
 you need to create the following script files:
 
 1) sql script to create database and tables
